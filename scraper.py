@@ -1,29 +1,21 @@
-import requests
 import json
 
-# File that scrapes a particualr steam app, then creates database entries for each of the comments
+from utils import Requester
 
+class Scraper:
+    def __init__(self, db_connection, requester):
+        """
+        Scraping class which connects to a database through SQLAlchemy and scrapes the Steam API for reviews.
+        db_connection: the SQLAlchemy object which allows us to interact with the datbase
+        requester (Requester): The requester object we use to get the data from the API
+        """
+        self.connection = db_connection
+        self.requester = requester
 
-def scrape_steam_reviews(app_id, params):
-    """
-    Scrapes Steam reviews for a given app ID.
+    def scrape_game(self, game_id):
+        """
+        Initializes scraping of all the user reviews on a game with `game_id`
+        game_id (uint): the steam ID of the game to scrape
+        """
+        pass
 
-    Args:
-        app_id (str): The Steam app ID.
-        params (dict): A dictionary of parameters to pass to the API.
-
-    Returns:
-        dict: A dictionary containing the JSON response from the API.
-    """
-    url = f"https://store.steampowered.com/appreviews/{app_id}"
-    try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error during request: {e}")
-        return None
-    except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
-        return None
-    
