@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  migrate:
+    build:
+      context: ./migrations
+      dockerfile: Dockerfile
+    container_name: scraper_migrate
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER:-scraper_user}:${DB_PASSWORD:-scraper_pass}@database:5432/${DB_NAME:-scraper_db}
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - scraper_network
+    profiles:
+      - migrate
+
+networks:
+  scraper_network:
+    external: true

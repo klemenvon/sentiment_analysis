@@ -1,0 +1,16 @@
+[project]
+name = "libs"
+version = "0.1.0"
+description = "Shared code for scraper and migrator"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "psycopg[binary]",
+    "sqlalchemy",
+    "loguru",
+    "requests",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

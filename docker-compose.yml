@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  database:
+    image: postgres:15-alpine
+    container_name: scraper_db
+    environment:
+      - POSTGRES_DB=${DB_NAME:-scraper_db}
+      - POSTGRES_USER=${DB_USER:-scraper_user}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-scraper_pass}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-scraper_user} -d ${DB_NAME:-scraper_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - scraper_network
+
+  scraper:
+    build: 
+      context: ./scraper
+      dockerfile: Dockerfile
+    container_name: scraper_app
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER:-scraper_user}:${DB_PASSWORD:-scraper_pass}@database:5432/${DB_NAME:-scraper_db}
+      - TARGETS_PATH=/app/targets
+    volumes:
+      - ./targets:/app/targets:ro
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - scraper_network
+    restart: unless-stopped
+
+networks:
+  scraper_network:
+    driver: bridge
+
+volumes:
+  postgres_data:

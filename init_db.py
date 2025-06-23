@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 # --- Import models ---
 # Import all of the models, even if we don't call them explicitly, if the ORM doesn't
 # know about them, we won't get the tables created.
-from models import (
+from libs.models import (
     Base,
     Author,
     Review,
