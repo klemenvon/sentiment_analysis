@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: scraper_migrate
     environment:
-      - DATABASE_URL=postgresql://${DB_USER:-scraper_user}:${DB_PASSWORD:-scraper_pass}@database:5432/${DB_NAME:-scraper_db}
+      - DATABASE_URL=postgresql://${DB_USER:-scraper_user}:${DB_PASSWORD:-scraper_pass}@database:5434/${DB_NAME:-scraper_db}
     depends_on:
       database:
         condition: service_healthy
