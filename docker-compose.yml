@@ -12,7 +12,7 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
     ports:
-      - "${DB_PORT:-5432}:5432"
+      - "${DB_PORT:-5432}:5434"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-scraper_user} -d ${DB_NAME:-scraper_db}"]
       interval: 10s
@@ -27,7 +27,7 @@ services:
       dockerfile: Dockerfile
     container_name: scraper_app
     environment:
-      - DATABASE_URL=postgresql://${DB_USER:-scraper_user}:${DB_PASSWORD:-scraper_pass}@database:5432/${DB_NAME:-scraper_db}
+      - DATABASE_URL=postgresql://${DB_USER:-scraper_user}:${DB_PASSWORD:-scraper_pass}@database:5434/${DB_NAME:-scraper_db}
       - TARGETS_PATH=/app/targets
     volumes:
       - ./targets:/app/targets:ro
