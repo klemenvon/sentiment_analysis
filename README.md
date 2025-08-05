@@ -4,6 +4,5 @@ A sentiment analysis experiment using Steam user reviews to see what insights ca
 
 # TODO
 - [ ] Scraping
-- [ ] Docker Setup
-- [ ] Data Analysis
 - [ ] Embedding
+- [ ] Data Analysis
