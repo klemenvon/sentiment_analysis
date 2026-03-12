@@ -7,5 +7,82 @@ requires-python = ">=3.13"
 dependencies = [
     "ipykernel>=6.30.1",
     "loguru>=0.7.3",
+    "pydantic>=2.12.5",
+    "python-dotenv>=1.2.2",
     "requests>=2.32.4",
+    "sqlalchemy>=2.0.48",
 ]
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+exclude = [
+    ".git",
+    ".venv",
+    "config.env",
+]
+
+target-version = "py313"
+
+[tool.ruff.lint]
+# Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
+# Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
+# McCabe complexity (`C901`) by default.
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort (Sorts your imports automatically!)
+    "UP",  # pyupgrade (Upgrades old syntax to Python 3.13 standards!)
+    "B",   # flake8-bugbear (Catches common common bugs/gotchas)
+]
+ignore = []
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+per-file-ignores = { "__init__.py" = ["F401", "F403"] }
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+
+# Like Black, respect magic trailing commas.
+skip-magic-trailing-comma = false
+
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+
+# Enable auto-formatting of code examples in docstrings. Markdown,
+# reStructuredText code/literal blocks and doctests are all supported.
+#
+# This is currently disabled by default, but it is planned for this
+# to be opt-out in the future.
+docstring-code-format = false
+
+# Set the line length limit used when formatting code snippets in
+# docstrings.
+#
+# This only has an effect when the `docstring-code-format` setting is
+# enabled.
+docstring-code-line-length = "dynamic"
+
+[tool.mypy]
+# If you want to exclude files for mypy, you have to put them directly in .pre-commit-config.yaml
+python_version = '3.13'
+check_untyped_defs = true
+show_error_codes = true
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+disable_error_code = []
+enable_error_code = [
+    "truthy-bool",
+]
+install_types = true
+non_interactive = true
