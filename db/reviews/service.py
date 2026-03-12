@@ -1,36 +1,6 @@
 from db.reviews.models import Game, Review, ReviewAuthor
 from dtos.reviews import GameData, ReviewData
 
-"""
-    Data format for reviews:
-            {
-            "recommendationid": 191404788,
-            "author": {
-                "steamid": "76561198278340294",
-                "num_games_owned": 307,
-                "num_reviews": 32,
-                "playtime_forever": 8505,
-                "playtime_last_two_weeks": 963,
-                "playtime_at_review": 8505,
-                "last_played": 1743187864
-            },
-            "language": "english",
-            "review": "Review text",
-            "timestamp_created": 1743189008,
-            "timestamp_updated": 1743189008,
-            "voted_up": true,
-            "votes_up": 1,
-            "votes_funny": 0,
-            "weighted_vote_score": 0.523809552192687988,
-            "comment_count": 0,
-            "steam_purchase": true,
-            "received_for_free": false,
-            "written_during_early_access": false,
-            "primarily_steam_deck": false,
-            "game_appid": 123456  # Added to identify the game
-        }
-"""
-
 
 def add_game(session, game_data: GameData) -> Game:
     # Check if game already exists
